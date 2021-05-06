@@ -287,7 +287,7 @@ function showEndInfo(type = 'win'){
         youWon.style.visibility = 'hidden';
         youWon.style.opacity = '0';
         youLose.style.visibility = 'visible';
-        rules.style.visibility = 'hidden';
+        rules.style.visibility = "hidden";
     }
 }
 
