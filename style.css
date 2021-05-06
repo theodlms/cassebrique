@@ -1,0 +1,130 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: gruppo, sans-serif;
+}
+
+.game {
+    background-image: url('images/background_cassebrique.jpg');
+    background-size: cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+}
+
+.btn {
+    cursor: pointer;
+    background-color: #000000;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    font-family: gruppo, sans-serif;
+    transition: background-color .1s ease-in;
+}
+
+.rules {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    background-color: #6198d8;
+    color: white;
+    width: 400px;
+    padding: 20px;
+    line-height: 1.5;
+    border-radius: 4px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .3s ease-in, visibility .3s ease-in;
+}
+
+.rules.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.rules p {
+    margin-bottom: .5rem;
+    margin-top: 0;
+}
+
+.btn:hover {
+    background-color: #376599;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.btn:active {
+    transform: scale(.98);
+}
+
+.rules-btn {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+}
+
+.sound-container {
+    position: absolute;
+    top: 50%;
+    right: 15%;
+}
+
+.sound-container #sound {
+    width: 40px;
+    height: auto;
+    transition: .1s ease-in-out;
+}
+
+#sound:hover {
+    box-shadow: 1px 1px 3px rgba(255, 255, 255, .5);
+}
+
+#game-over {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    width: 250px;
+    height: 300px;
+    visibility: hidden;
+    opacity: 0;
+}
+
+#you-won,
+#you-lose {
+    width: 160px;
+}
+
+#restart {
+    color: white;
+    cursor: pointer;
+    padding: 4px 8px;
+    line-height: 1.5;
+    border: 1px solid #6198d8;
+    border-radius: 4px;
+    text-align: center;
+    transition: .1s ease-in-out;
+}
+
+#restart:hover {
+    background-color: #6898d8;
+}
+
+#canvas {
+    background-color: #111;
+    display: block;
+    border-radius: 4px;
+}
