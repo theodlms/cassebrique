@@ -2,7 +2,7 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-canvas.style.border= "1px solid #6198d8";
+canvas.style.border = "1px solid #6198d8";
 ctx.lineheight = 1;
 
 // CONSTANTE NÉCESSAIRES
@@ -31,14 +31,15 @@ const youWon = document.getElementById('you-won');
 const youLose = document.getElementById('you-lose');
 const restart = document.getElementById('restart');
 const sound = document.getElementById('sound');
+const citation = document.getElementById('citation');
 
 // PROPRIÉTÉS DE LA RAQUETTE
-const  paddle = {
+const paddle = {
     x: (canvas.width / 2) - (PADDLE_WIDTH / 2),
     y: canvas.height - PADDLE_MARGIN_BOTTOM - PADDLE_HEIGHT,
     w: PADDLE_WIDTH,
     h: PADDLE_MARGIN_BOTTOM,
-    dx:8
+    dx: 8
 };
 
 //  PROPRIÉTÉ DE LA BALLE
@@ -47,7 +48,7 @@ const ball = {
     y: paddle.y - BALL_RADIUS,
     radius: BALL_RADIUS,
     velocity: 7,
-    dx: 3 * (Math.random() * 2 - 1), 
+    dx: 3 * (Math.random() * 2 - 1),
     dy: -3
 };
 
@@ -67,14 +68,15 @@ const brickProp = {
 
 // CRÉATION DE TOUTES LES BRIQUES
 let bricks = [];
-function createBricks(){
-    for (let r = 0; r < brickProp.row; r++){
+
+function createBricks() {
+    for (let r = 0; r < brickProp.row; r++) {
         bricks[r] = [];
         for (let c = 0; c < brickProp.column; c++) {
             bricks[r][c] = {
                 x: c * (brickProp.w + brickProp.padding) + brickProp.offsetX,
                 y: r * (brickProp.h + brickProp.padding) + brickProp.offsetY,
-                status:true,
+                status: true,
                 ...brickProp
             }
         }
@@ -83,7 +85,7 @@ function createBricks(){
 createBricks();
 
 // DESSINER LES BRIQUES
-function drawBricks(){
+function drawBricks() {
     bricks.forEach(column => {
         column.forEach(bricks => {
             if (bricks.status) {
@@ -98,7 +100,7 @@ function drawBricks(){
 }
 
 // DESSINER LA RAQUETTE
-function drawPaddle(){
+function drawPaddle() {
     ctx.beginPath();
     ctx.fillStyle = '#fff';
     ctx.fillRect(paddle.x, paddle.y, paddle.w, paddle.h);
@@ -110,7 +112,7 @@ function drawPaddle(){
 //  DESSINER LA BALLE
 function drawBall() {
     ctx.beginPath();
-    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI *2);
+    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
     ctx.fillStyle = '#fff';
     ctx.fill();
     ctx.strokeStyle = '#6198d8'
@@ -119,13 +121,13 @@ function drawBall() {
 };
 
 // COLLISION BALLE - BRIQUE
-function bbCollision(){
+function bbCollision() {
     bricks.forEach(column => {
         column.forEach(bricks => {
             if (bricks.status) {
                 if (ball.x + ball.radius > bricks.x &&
-                    ball.x - ball.radius < bricks.x + bricks.w && 
-                    ball.y + ball.radius > bricks.y && 
+                    ball.x - ball.radius < bricks.x + bricks.w &&
+                    ball.y + ball.radius > bricks.y &&
                     ball.y - ball.radius < bricks.y + bricks.h) {
 
                     BRICK_HIT.play();
@@ -139,17 +141,17 @@ function bbCollision(){
 }
 
 // INTÉRACTION BALLE - MUR
-function bwCollision(){
+function bwCollision() {
     // Collision sur les axes X
-if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
-    WALL_HIT.play();
-    ball.dx *= -1;
-}
+    if (ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0) {
+        WALL_HIT.play();
+        ball.dx *= -1;
+    }
     // Collision sur l'axe supérieur
-if (ball.y - ball.radius < 0 ) {
-    WALL_HIT.play();
-    ball.dy *= -1;
-}
+    if (ball.y - ball.radius < 0) {
+        WALL_HIT.play();
+        ball.dy *= -1;
+    }
     // Collision entrainant une perte de vie
     if (ball.y + ball.radius > canvas.height) {
         LIFE_LOST.play();
@@ -160,7 +162,7 @@ if (ball.y - ball.radius < 0 ) {
 };
 
 // INTÉRACTION BALLE - RAQUETTE
-function bpCollision (){
+function bpCollision() {
     if (ball.x + ball.radius > paddle.x &&
         ball.x - ball.radius < paddle.x + paddle.w &&
         ball.y + ball.radius > paddle.y) {
@@ -169,14 +171,14 @@ function bpCollision (){
         let collidePoint = ball.x - (paddle.x + paddle.w / 2);
         collidePoint = collidePoint / (paddle.w / 2);
 
-        let angle =  collidePoint * Math.PI/3;
+        let angle = collidePoint * Math.PI / 3;
 
         ball.dx = ball.velocity * Math.sin(angle);
-        ball.dy = - ball.velocity * Math.cos(angle);
+        ball.dy = -ball.velocity * Math.cos(angle);
     }
 };
 
-function resetBall(){
+function resetBall() {
     ball.x = canvas.width / 2;
     ball.y = paddle.y - BALL_RADIUS;
     ball.dx = 3 * (Math.random() * 2 - 1);
@@ -184,24 +186,24 @@ function resetBall(){
 };
 
 // MISE EN PLACE DES TOUCHES DE CONTROLES DE LA RAQUETTE
-document.addEventListener('keydown', function(e){
-    if (e.key === 'Left' || e.key === 'ArrowLeft'){
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Left' || e.key === 'ArrowLeft') {
         leftArrow = true;
-    } else if  (e.key === 'Right' || e.key === 'ArrowRight'){
+    } else if (e.key === 'Right' || e.key === 'ArrowRight') {
         rightArrow = true;
     }
 });
 
-document.addEventListener('keyup', function(e){
-    if (e.key === 'Left' || e.key === 'ArrowLeft'){
+document.addEventListener('keyup', function(e) {
+    if (e.key === 'Left' || e.key === 'ArrowLeft') {
         leftArrow = false;
-    } else if  (e.key === 'Right' || e.key === 'ArrowRight'){
+    } else if (e.key === 'Right' || e.key === 'ArrowRight') {
         rightArrow = false;
     }
 });
 
 // ON CRÉE LA FONCTION POUR FAIRE SE DÉPLACER LA RAQUETTE
-function  movePaddle(){
+function movePaddle() {
     if (leftArrow && paddle.x > 0) {
         paddle.x -= paddle.dx;
     } else if (rightArrow && paddle.x + paddle.w < canvas.width) {
@@ -209,18 +211,18 @@ function  movePaddle(){
     }
 }
 
-function resetPaddle(){
+function resetPaddle() {
     paddle.x = (canvas.width / 2) - (PADDLE_WIDTH / 2);
     paddle.y = canvas.height - PADDLE_MARGIN_BOTTOM - PADDLE_HEIGHT;
 }
 
 // ON CRÉE LA FONCTION POUR QUE LA BALLE SE DÉPLACE
-function moveBall(){
+function moveBall() {
     ball.x += ball.dx;
     ball.y += ball.dy;
 }
 // AFFICHER LES STATISTIQUES DU JEU
-function showStats(img, iposX, iposY, text ='', tPosX = null, tPosY = null){
+function showStats(img, iposX, iposY, text = '', tPosX = null, tPosY = null) {
     ctx.fillStyle = '#fff';
     ctx.font = '20px sans-serif';
     ctx.fillText(text, tPosX, tPosY)
@@ -228,31 +230,49 @@ function showStats(img, iposX, iposY, text ='', tPosX = null, tPosY = null){
 }
 
 // AFFICHAGE DES RÈGLES DU JEU
-rulesBtn.addEventListener('click', function(){
+rulesBtn.addEventListener('click', function() {
     rules.classList.add('show');
     isPaused = true;
 });
-closeBtn.addEventListener('click', function(){
+closeBtn.addEventListener('click', function() {
     rules.classList.remove('show');
     isPaused = false;
 });
 
 // ON CRÉE LA FONCTION QUI PERMET D'ARRETER LA PARTIE QUAND LA VIE DU JOUEUR EST À 0
-function gameover(){
+function gameover() {
     if (life <= 0) {
         showEndInfo('lose');
         gameOver = true;
     }
 }
 
+// ON CRÉE LA FONCTION QUI PERMET DE GENERER LES CITATIONS ALEATOIRE
+//  var listePhrases = new Array(
+//                     "Message 1",
+//                     "Message 2",
+//                     "Message 3" );
+
+//             function getPhrase(){
+//                     if(listePhrases.length < 1){
+//                         document.getElementById("textes").innerHTML = 'plus de message';
+//                     }
+//                     else{
+//                         var text_al = listePhrases[Math.floor(Math.random() * listePhrases.length)];                                           
+//                         var pos = listePhrases.indexOf(text_al);
+//                         listePhrases.splice(pos,1);
+//                         document.getElementById("textes").innerHTML = text_al;
+//                     }
+//             }
+
 // ON CRÉE LA FONCTION POUR PASSER AU NIVEAU SUIVANT
-function nextLevel(){
+function nextLevel() {
     let isLevelUp = true;
 
     for (let r = 0; r < brickProp.row; r++) {
         for (let c = 0; c < brickProp.column; c++) {
             isLevelUp = isLevelUp && !bricks[r][c].status;
-            
+
         }
     }
     if (isLevelUp) {
@@ -272,7 +292,7 @@ function nextLevel(){
 };
 
 // AFFICHAGE DES INFOS DE FIN DE PARTIE
-function showEndInfo(type = 'win'){
+function showEndInfo(type = 'win') {
     game_over.style.visibility = 'visible';
     game_over.style.opacity = '1';
 
@@ -281,6 +301,7 @@ function showEndInfo(type = 'win'){
         youWon.style.visibility = 'visible';
         youLose.style.visibility = 'hidden';
         youLose.style.opacity = '0';
+        citation.style.visibility = 'hidden';
 
         // Si le joueur perd
     } else {
@@ -292,17 +313,17 @@ function showEndInfo(type = 'win'){
 }
 
 // RELATIF À TOUS CE QUI CONCERNE L'AFFICHAGE
-function draw (){
+function draw() {
     drawPaddle();
     drawBall();
     drawBricks();
-    showStats(SCORE_IMG, canvas.width - 100, 5, score, canvas.width -65, 22);
+    showStats(SCORE_IMG, canvas.width - 100, 5, score, canvas.width - 65, 22);
     showStats(LIFE_IMG, 35, 5, life, 70, 22);
-    showStats(LEVEL_IMG, canvas.width / 2 - 25, 5, level, canvas.width / 2 , 22);
+    showStats(LEVEL_IMG, canvas.width / 2 - 25, 5, level, canvas.width / 2, 22);
 }
 
 // RELATIF À TOUS CE QUI CONCERNE L'INTERACTION & LES ANIMATIONS
-function update(){
+function update() {
     movePaddle();
     moveBall();
     bwCollision();
@@ -312,7 +333,7 @@ function update(){
     nextLevel();
 }
 
-function loop (){
+function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // Si le jeu n'est pas en pause, lancer le jeu
     if (!isPaused) {
@@ -329,7 +350,7 @@ loop();
 //  GESTION DES ÉVENEMENTS AUDIO
 sound.addEventListener('click', audioManager);
 
-function audioManager(){
+function audioManager() {
     // Changer l'image
     let imgSrc = sound.getAttribute('src');
     let SOUND_IMG = imgSrc === 'images/sound_on.png' ? 'images/mute.png' : 'images/sound_on.png';
@@ -344,6 +365,6 @@ function audioManager(){
 };
 
 // RELANCER LE JEU
-restart.addEventListener('click', function(){
+restart.addEventListener('click', function() {
     location.reload();
 })

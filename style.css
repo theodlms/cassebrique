@@ -7,6 +7,10 @@ body {
     font-family: gruppo, sans-serif;
 }
 
+p {
+    color: #fff;
+}
+
 .game {
     background-image: url('images/background_cassebrique.jpg');
     background-size: cover;

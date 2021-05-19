@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,13 +8,13 @@
     <link rel="stylesheet" href="style.css">
     <title>Total Breakout</title>
 </head>
+
 <body>
     <section id="game" class="game">
         <input type="button" id="rules-btn" class="btn rules-btn" value="Règles du jeu">
         <div class="rules" id="rules">
             <h2>Règles de jeu</h2>
-            <p>Utilisez les touches gauche ◄ et droite ► du clavier pour diriger la planche <br>
-            La balle doit rebondir sur la planche pour rentrer briser les briques</p>
+            <p>Utilisez les touches gauche ◄ et droite ► du clavier pour diriger la planche <br> La balle doit rebondir sur la planche pour rentrer briser les briques</p>
             <p>Si elle tombe à même le sol, vous perdez une vie. Le jeu s'arrete dès que vous n'avez plus de vie</p>
             <input type="button" id="close-btn" class="close-btn btn" value="Quitter">
         </div>
@@ -23,6 +24,7 @@
         <div id="game-over">
             <img src="images/you-won.png" alt="" id="you-won">
             <img src="images/game-over.png" alt="" id="you-lose">
+            <p id="citation"><q>Le sentiment d'échec n'existe que dans notre façon de concevoir la réussite.</q> John Joos</p>
             <div id="restart">Rejouer</div>
         </div>
 
@@ -31,4 +33,5 @@
     <script src="components.js"></script>
     <script src="game.js"></script>
 </body>
+
 </html>
