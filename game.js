@@ -11,7 +11,8 @@ const PADDLE_MARGIN_BOTTOM = 20;
 const PADDLE_HEIGHT = 10;
 const BALL_RADIUS = 5;
 const SCORE_UNIT = 10;
-const MAX_LEVEL = 3;
+const MAX_LEVEL = 6;
+const MAX_LIFE = 6;
 
 // VARIABLES NCESSAIRES
 let leftArrow = false;
@@ -54,7 +55,7 @@ const ball = {
 
 // PROPRIÉTÉS DES BRIQUES
 const brickProp = {
-    row: 2,
+    row: 1,
     column: 13,
     w: 35,
     h: 10,
@@ -248,22 +249,21 @@ function gameover() {
 }
 
 // ON CRÉE LA FONCTION QUI PERMET DE GENERER LES CITATIONS ALEATOIRE
-//  var listePhrases = new Array(
-//                     "Message 1",
-//                     "Message 2",
-//                     "Message 3" );
+var listePhrases = new Array(
+    "Message 1",
+    "Message 2",
+    "Message 3");
 
-//             function getPhrase(){
-//                     if(listePhrases.length < 1){
-//                         document.getElementById("textes").innerHTML = 'plus de message';
-//                     }
-//                     else{
-//                         var text_al = listePhrases[Math.floor(Math.random() * listePhrases.length)];                                           
-//                         var pos = listePhrases.indexOf(text_al);
-//                         listePhrases.splice(pos,1);
-//                         document.getElementById("textes").innerHTML = text_al;
-//                     }
-//             }
+function getPhrase() {
+    if (listePhrases.length < 1) {
+        document.getElementById("textes").innerHTML = 'plus de message';
+    } else {
+        var text_al = listePhrases[Math.floor(Math.random() * listePhrases.length)];
+        var pos = listePhrases.indexOf(text_al);
+        listePhrases.splice(pos, 1);
+        document.getElementById("textes").innerHTML = text_al;
+    }
+}
 
 // ON CRÉE LA FONCTION POUR PASSER AU NIVEAU SUIVANT
 function nextLevel() {
@@ -290,6 +290,8 @@ function nextLevel() {
         level++;
     }
 };
+
+// ON CRÉE LA FONCTION POUR GAGNER DE VIE
 
 // AFFICHAGE DES INFOS DE FIN DE PARTIE
 function showEndInfo(type = 'win') {

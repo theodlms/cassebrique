@@ -10,7 +10,9 @@
 </head>
 
 <body>
+
     <section id="game" class="game">
+        <h1>Cassebrique</h1>
         <input type="button" id="rules-btn" class="btn rules-btn" value="Règles du jeu">
         <div class="rules" id="rules">
             <h2>Règles de jeu</h2>
@@ -23,12 +25,14 @@
         </div>
         <div id="game-over">
             <img src="images/you-won.png" alt="" id="you-won">
-            <img src="images/game-over.png" alt="" id="you-lose">
-            <p id="citation"><q>Le sentiment d'échec n'existe que dans notre façon de concevoir la réussite.</q> John Joos</p>
-            <div id="restart">Rejouer</div>
+            <div class="game-over">
+                <img src="images/game-over.png" alt="" id="you-lose">
+                <p id="citation"><q>Le sentiment d'échec n'existe que dans notre façon de concevoir la réussite.</q> John Joos</p>
+                <input type="button" id="restart" value="Rejouer">
+            </div>
         </div>
 
-        <canvas id="canvas" width="600" height="500"></canvas>
+        <canvas id="canvas" width="600" height="450"></canvas>
     </section>
     <script src="components.js"></script>
     <script src="game.js"></script>
