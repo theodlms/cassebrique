@@ -10,7 +10,7 @@ const PADDLE_WIDTH = 100;
 const PADDLE_MARGIN_BOTTOM = 20;
 const PADDLE_HEIGHT = 10;
 const BALL_RADIUS = 5;
-const SCORE_UNIT = 10;
+const SCORE_UNIT = 9;
 const MAX_LEVEL = 6;
 const MAX_LIFE = 6;
 
@@ -246,109 +246,114 @@ function gameover() {
         showEndInfo('lose');
         gameOver = true;
     }
+}
 
-    // ON CRÉE LA FONCTION POUR PASSER AU NIVEAU SUIVANT
-    function nextLevel() {
-        let isLevelUp = true;
+// ON CRÉE LA FONCTION POUR PASSER AU NIVEAU SUIVANT
+function nextLevel() {
+    let isLevelUp = true;
 
-        for (let r = 0; r < brickProp.row; r++) {
-            for (let c = 0; c < brickProp.column; c++) {
-                isLevelUp = isLevelUp && !bricks[r][c].status;
+    for (let r = 0; r < brickProp.row; r++) {
+        for (let c = 0; c < brickProp.column; c++) {
+            isLevelUp = isLevelUp && !bricks[r][c].status;
 
-            }
-        }
-        if (isLevelUp) {
-            WIN.play();
-            if (level >= MAX_LEVEL) {
-                showEndInfo();
-                gameOver = true;
-                return;
-            }
-            brickProp.row += 1;
-            createBricks();
-            ball.velocity += 1;
-            resetBall();
-            resetPaddle();
-            level++;
-            life++;
-        }
-    };
-
-    // AFFICHAGE DES INFOS DE FIN DE PARTIE
-    function showEndInfo(type = 'win') {
-        game_over.style.visibility = 'visible';
-        game_over.style.opacity = '1';
-
-        // Si le joueur gagne
-        if (type === 'win') {
-            youWon.style.visibility = 'visible';
-            youLose.style.visibility = 'hidden';
-            youLose.style.opacity = '0';
-            citation.style.visibility = 'hidden';
-
-            // Si le joueur perd
-        } else {
-            youWon.style.visibility = 'hidden';
-            youWon.style.opacity = '0';
-            youLose.style.visibility = 'visible';
-            rules.style.visibility = "hidden";
         }
     }
-
-    // RELATIF À TOUS CE QUI CONCERNE L'AFFICHAGE
-    function draw() {
-        drawPaddle();
-        drawBall();
-        drawBricks();
-        showStats(SCORE_IMG, canvas.width - 100, 5, score, canvas.width - 65, 22);
-        showStats(LIFE_IMG, 35, 5, life, 70, 22);
-        showStats(LEVEL_IMG, canvas.width / 2 - 25, 5, level, canvas.width / 2, 22);
-    }
-
-    // RELATIF À TOUS CE QUI CONCERNE L'INTERACTION & LES ANIMATIONS
-    function update() {
-        movePaddle();
-        moveBall();
-        bwCollision();
-        bpCollision();
-        bbCollision();
-        gameover();
-        nextLevel();
-        // addLife();
-    }
-
-    function loop() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        // Si le jeu n'est pas en pause, lancer le jeu
-        if (!isPaused) {
-            draw();
-            update();
+    if (isLevelUp) {
+        WIN.play();
+        if (level >= MAX_LEVEL) {
+            showEndInfo();
+            gameOver = true;
+            return;
         }
-        // Si le joueur perd afficher GameOver
-        if (!gameOver) {
-            requestAnimationFrame(loop);
-        };
+        brickProp.row += 1;
+        createBricks();
+        ball.velocity += 1;
+        resetBall();
+        resetPaddle();
+        level++;
+        addLife();
+    }
+};
+// MISE À JOUR DE VIE
+function addLife() {
+    if (MAX_LIFE > life) {
+        life++;
+    }
+}
+// AFFICHAGE DES INFOS DE FIN DE PARTIE
+function showEndInfo(type = 'win') {
+    game_over.style.visibility = 'visible';
+    game_over.style.opacity = '1';
+
+    // Si le joueur gagne
+    if (type === 'win') {
+        youWon.style.visibility = 'visible';
+        youLose.style.visibility = 'hidden';
+        youLose.style.opacity = '0';
+        citation.style.visibility = 'hidden';
+
+        // Si le joueur perd
+    } else {
+        youWon.style.visibility = 'hidden';
+        youWon.style.opacity = '0';
+        youLose.style.visibility = 'visible';
+        rules.style.visibility = "hidden";
+    }
+}
+
+// RELATIF À TOUS CE QUI CONCERNE L'AFFICHAGE
+function draw() {
+    drawPaddle();
+    drawBall();
+    drawBricks();
+    showStats(SCORE_IMG, canvas.width - 100, 5, score, canvas.width - 65, 22);
+    showStats(LIFE_IMG, 35, 5, life, 70, 22);
+    showStats(LEVEL_IMG, canvas.width / 2 - 25, 5, level, canvas.width / 2, 22);
+}
+
+// RELATIF À TOUS CE QUI CONCERNE L'INTERACTION & LES ANIMATIONS
+function update() {
+    movePaddle();
+    moveBall();
+    bwCollision();
+    bpCollision();
+    bbCollision();
+    gameover();
+    nextLevel();
+}
+
+function loop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Si le jeu n'est pas en pause, lancer le jeu
+    if (!isPaused) {
+        draw();
+        update();
+    }
+    // Si le joueur perd afficher GameOver
+    if (!gameOver) {
+        requestAnimationFrame(loop);
     };
+};
 
-    loop();
-    //  GESTION DES ÉVENEMENTS AUDIO
-    sound.addEventListener('click', audioManager);
+loop();
+//  GESTION DES ÉVENEMENTS AUDIO
+sound.addEventListener('click', audioManager);
 
-    function audioManager() {
-        // Changer l'image
-        let imgSrc = sound.getAttribute('src');
-        let SOUND_IMG = imgSrc === 'images/sound_on.png' ? 'images/mute.png' : 'images/sound_on.png';
-        sound.setAttribute('src', SOUND_IMG);
+function audioManager() {
+    // Changer l'image
+    let imgSrc = sound.getAttribute('src');
+    let SOUND_IMG = imgSrc === 'images/sound_on.png' ? 'images/mute.png' : 'images/sound_on.png';
+    sound.setAttribute('src', SOUND_IMG);
 
-        // Modification des sons en fonction des etats
-        WALL_HIT.muted = !WALL_HIT.muted;
-        PADDLE_HIT.muted = !PADDLE_HIT.muted;
-        BRICK_HIT.muted = !BRICK_HIT.muted;
-        WIN.muted = !WIN.muted;
-        LIFE_LOST.muted = !LIFE_LOST.muted;
-    };
+    // Modification des sons en fonction des etats
+    WALL_HIT.muted = !WALL_HIT.muted;
+    PADDLE_HIT.muted = !PADDLE_HIT.muted;
+    BRICK_HIT.muted = !BRICK_HIT.muted;
+    WIN.muted = !WIN.muted;
+    LIFE_LOST.muted = !LIFE_LOST.muted;
+};
 
-    // RELANCER LE JEU
-    restart.addEventListener('click', function() {
-        location.reload();
-    })
+// RELANCER LE JEU
+restart.addEventListener('click', function() {
+    location.reload();
+})
