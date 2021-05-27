@@ -32,8 +32,8 @@ const youWon = document.getElementById('you-won');
 const youLose = document.getElementById('you-lose');
 const restart = document.getElementById('restart');
 const sound = document.getElementById('sound');
-const citation = document.getElementById('citation');
-
+const citations = document.getElementById('citation');
+const autor = document.getElementById("autor");
 // PROPRIÉTÉS DE LA RAQUETTE
 const paddle = {
     x: (canvas.width / 2) - (PADDLE_WIDTH / 2),
@@ -290,7 +290,7 @@ function showEndInfo(type = 'win') {
         youWon.style.visibility = 'visible';
         youLose.style.visibility = 'hidden';
         youLose.style.opacity = '0';
-        citation.style.visibility = 'hidden';
+        citations.style.visibility = 'hidden';
 
         // Si le joueur perd
     } else {
@@ -311,6 +311,16 @@ function draw() {
     showStats(LEVEL_IMG, canvas.width / 2 - 25, 5, level, canvas.width / 2, 22);
 }
 
+// AFFICHER LA CITATION ALEATOIRE
+
+var citationAleatoires = [
+    "<p> <q> <i> Le sentiment d'échec n'existe que dans notre façon de concevoir la réussite.</i> </q> <br> -John Joos</p>",
+    "<p> <q> <i>Ne jamais abandonner c'est gagner.</i></q> <br> -Internaute</p>",
+    "<p> <q>N'abandonne jamais puisque la lutte est nécessaire pour nos rêves.</q> <br> -Nithael</p>",
+    "<p> <q>On abandonne jamais</q> <br> -Nidhal</p>",
+    "<p> <q>La plus belle réussite c'est de ne pas lâcher prise.</q> <br> -William Dubois</p>",
+];
+citations.innerHTML = citationAleatoires[Math.floor((citationAleatoires.length) * Math.random())];
 // RELATIF À TOUS CE QUI CONCERNE L'INTERACTION & LES ANIMATIONS
 function update() {
     movePaddle();
