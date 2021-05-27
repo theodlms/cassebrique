@@ -133,8 +133,7 @@ p {
 }
 
 #canvas {
-    /* background-color: #111; */
-    /* background-image: url('images/background_cassebrique.jpg'); */
+    background-color: #111;
     opacity: unset;
     border-radius: 20px;
     display: block;
