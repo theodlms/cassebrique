@@ -314,11 +314,22 @@ function draw() {
 // AFFICHER LA CITATION ALEATOIRE
 
 var citationAleatoires = [
-    "<p> <q> <i> Le sentiment d'échec n'existe que dans notre façon de concevoir la réussite.</i> </q> <br> -John Joos</p>",
+    "<p> <q> <i>Le sentiment d'échec n'existe que dans notre façon de concevoir la réussite.</i> </q> <br> - John Joos</p>",
     "<p> <q> <i>Ne jamais abandonner c'est gagner.</i></q> <br> -Internaute</p>",
-    "<p> <q>N'abandonne jamais puisque la lutte est nécessaire pour nos rêves.</q> <br> -Nithael</p>",
-    "<p> <q>On abandonne jamais</q> <br> -Nidhal</p>",
-    "<p> <q>La plus belle réussite c'est de ne pas lâcher prise.</q> <br> -William Dubois</p>",
+    "<p> <q><i>N'abandonne jamais puisque la lutte est nécessaire pour nos rêves.</i></q> <br> - Nithael</p>",
+    "<p> <q><i>On abandonne jamais</i></q> <br> - Nidhal</p>",
+    "<p> <q><i>La plus belle réussite c'est de ne pas lâcher prise.</i></q> <br> - William Dubois</p>",
+    "<p> <q><i>Dans la vie, toutes les réussites sont des échecs qui ont raté.</i></q> <br> - Romain Gary </p>",
+    "<p> <q><i>Il n'y a pas de réussite facile ni d'échecs définitifs.</i></q> <br> - Marcel Proust</p>",
+    "<p> <q><i>Le plus important n'est pas le but lui-même, c'est de se battre pour l'atteindre.</i></q> <br> - Jan Carlzon</p>",
+    "<p> <q><i>Le commencement est beaucoup plus que la moitié de l'objectif.</i></q> <br> - Aristote</p>",
+    "<p> <q><i>Je suis folle de ce jeu.</i></q> <br> - Madame de Sévigné</p>",
+    "<p> <q><i>Gagner demande du talent, répéter demande du caractère.</i></q> <br> - John Wooden</p>",
+    "<p> <q><i>Quand tout est mis en oeuvre, alors l'échec n'est plus.</i></q> <br> - Alain Chauvineau</p>",
+    "<p> <q><i>Il y a une seule manière d'échouer, c'est d'abandonner avant d'avoir réussi.</i></q> <br> - Simon Vivian Makondo</p>",
+    "<p> <q><i>L'échec existe si et seulement si on le considère comme tel !</i></q> <br> - Johann Dizant </p>",
+    "<p> <q><i>L'échec est le seuil de la porte qui mène au succès.</i></q> <br> - Christian KAZADI</p>",
+    "<p> <q><i>Mieux vaut essayer pour échouer, que d'avoir honte et de ne jamais essayer.</i></q> <br> - Kouassi Sinan KOMENAN,</p>",
 ];
 citations.innerHTML = citationAleatoires[Math.floor((citationAleatoires.length) * Math.random())];
 // RELATIF À TOUS CE QUI CONCERNE L'INTERACTION & LES ANIMATIONS
