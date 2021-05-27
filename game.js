@@ -245,25 +245,27 @@ function gameover() {
     if (life <= 0) {
         showEndInfo('lose');
         gameOver = true;
-    }
+    } // else {
+    //     addLife();
+    // }
 }
 
 // ON CRÉE LA FONCTION QUI PERMET DE GENERER LES CITATIONS ALEATOIRE
-var listePhrases = new Array(
-    "Message 1",
-    "Message 2",
-    "Message 3");
+// var listePhrases = new Array(
+//     "Message 1",
+//     "Message 2",
+//     "Message 3");
 
-function getPhrase() {
-    if (listePhrases.length < 1) {
-        document.getElementById("textes").innerHTML = 'plus de message';
-    } else {
-        var text_al = listePhrases[Math.floor(Math.random() * listePhrases.length)];
-        var pos = listePhrases.indexOf(text_al);
-        listePhrases.splice(pos, 1);
-        document.getElementById("textes").innerHTML = text_al;
-    }
-}
+// function getPhrase() {
+//     if (listePhrases.length < 1) {
+//         document.getElementById("textes").innerHTML = 'plus de message';
+//     } else {
+//         var text_al = listePhrases[Math.floor(Math.random() * listePhrases.length)];
+//         var pos = listePhrases.indexOf(text_al);
+//         listePhrases.splice(pos, 1);
+//         document.getElementById("textes").innerHTML = text_al;
+//     }
+// }
 
 // ON CRÉE LA FONCTION POUR PASSER AU NIVEAU SUIVANT
 function nextLevel() {
@@ -282,17 +284,22 @@ function nextLevel() {
             gameOver = true;
             return;
         }
-        brickProp.row += 2;
+        brickProp.row += 1;
         createBricks();
         ball.velocity += 1;
         resetBall();
         resetPaddle();
         level++;
+        life++;
     }
 };
 
 // ON CRÉE LA FONCTION POUR GAGNER DE VIE
-
+// function addLife() {
+//     if (MAX_LIFE > life && life > 0) {
+//         life++;
+//     }
+// }
 // AFFICHAGE DES INFOS DE FIN DE PARTIE
 function showEndInfo(type = 'win') {
     game_over.style.visibility = 'visible';
@@ -333,6 +340,7 @@ function update() {
     bbCollision();
     gameover();
     nextLevel();
+    // addLife();
 }
 
 function loop() {

@@ -135,6 +135,6 @@ p {
 #canvas {
     background-color: #111;
     opacity: unset;
-    border-radius: 20px;
+    border-radius: 10px;
     display: block;
 }
