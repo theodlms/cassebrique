@@ -245,136 +245,110 @@ function gameover() {
     if (life <= 0) {
         showEndInfo('lose');
         gameOver = true;
-    } // else {
-    //     addLife();
-    // }
-}
+    }
 
-// ON CRÉE LA FONCTION QUI PERMET DE GENERER LES CITATIONS ALEATOIRE
-// var listePhrases = new Array(
-//     "Message 1",
-//     "Message 2",
-//     "Message 3");
+    // ON CRÉE LA FONCTION POUR PASSER AU NIVEAU SUIVANT
+    function nextLevel() {
+        let isLevelUp = true;
 
-// function getPhrase() {
-//     if (listePhrases.length < 1) {
-//         document.getElementById("textes").innerHTML = 'plus de message';
-//     } else {
-//         var text_al = listePhrases[Math.floor(Math.random() * listePhrases.length)];
-//         var pos = listePhrases.indexOf(text_al);
-//         listePhrases.splice(pos, 1);
-//         document.getElementById("textes").innerHTML = text_al;
-//     }
-// }
+        for (let r = 0; r < brickProp.row; r++) {
+            for (let c = 0; c < brickProp.column; c++) {
+                isLevelUp = isLevelUp && !bricks[r][c].status;
 
-// ON CRÉE LA FONCTION POUR PASSER AU NIVEAU SUIVANT
-function nextLevel() {
-    let isLevelUp = true;
-
-    for (let r = 0; r < brickProp.row; r++) {
-        for (let c = 0; c < brickProp.column; c++) {
-            isLevelUp = isLevelUp && !bricks[r][c].status;
-
+            }
         }
-    }
-    if (isLevelUp) {
-        WIN.play();
-        if (level >= MAX_LEVEL) {
-            showEndInfo();
-            gameOver = true;
-            return;
+        if (isLevelUp) {
+            WIN.play();
+            if (level >= MAX_LEVEL) {
+                showEndInfo();
+                gameOver = true;
+                return;
+            }
+            brickProp.row += 1;
+            createBricks();
+            ball.velocity += 1;
+            resetBall();
+            resetPaddle();
+            level++;
+            life++;
         }
-        brickProp.row += 1;
-        createBricks();
-        ball.velocity += 1;
-        resetBall();
-        resetPaddle();
-        level++;
-        life++;
-    }
-};
-
-// ON CRÉE LA FONCTION POUR GAGNER DE VIE
-// function addLife() {
-//     if (MAX_LIFE > life && life > 0) {
-//         life++;
-//     }
-// }
-// AFFICHAGE DES INFOS DE FIN DE PARTIE
-function showEndInfo(type = 'win') {
-    game_over.style.visibility = 'visible';
-    game_over.style.opacity = '1';
-
-    // Si le joueur gagne
-    if (type === 'win') {
-        youWon.style.visibility = 'visible';
-        youLose.style.visibility = 'hidden';
-        youLose.style.opacity = '0';
-        citation.style.visibility = 'hidden';
-
-        // Si le joueur perd
-    } else {
-        youWon.style.visibility = 'hidden';
-        youWon.style.opacity = '0';
-        youLose.style.visibility = 'visible';
-        rules.style.visibility = "hidden";
-    }
-}
-
-// RELATIF À TOUS CE QUI CONCERNE L'AFFICHAGE
-function draw() {
-    drawPaddle();
-    drawBall();
-    drawBricks();
-    showStats(SCORE_IMG, canvas.width - 100, 5, score, canvas.width - 65, 22);
-    showStats(LIFE_IMG, 35, 5, life, 70, 22);
-    showStats(LEVEL_IMG, canvas.width / 2 - 25, 5, level, canvas.width / 2, 22);
-}
-
-// RELATIF À TOUS CE QUI CONCERNE L'INTERACTION & LES ANIMATIONS
-function update() {
-    movePaddle();
-    moveBall();
-    bwCollision();
-    bpCollision();
-    bbCollision();
-    gameover();
-    nextLevel();
-    // addLife();
-}
-
-function loop() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // Si le jeu n'est pas en pause, lancer le jeu
-    if (!isPaused) {
-        draw();
-        update();
-    }
-    // Si le joueur perd afficher GameOver
-    if (!gameOver) {
-        requestAnimationFrame(loop);
     };
-};
 
-loop();
-//  GESTION DES ÉVENEMENTS AUDIO
-sound.addEventListener('click', audioManager);
+    // AFFICHAGE DES INFOS DE FIN DE PARTIE
+    function showEndInfo(type = 'win') {
+        game_over.style.visibility = 'visible';
+        game_over.style.opacity = '1';
 
-function audioManager() {
-    // Changer l'image
-    let imgSrc = sound.getAttribute('src');
-    let SOUND_IMG = imgSrc === 'images/sound_on.png' ? 'images/mute.png' : 'images/sound_on.png';
-    sound.setAttribute('src', SOUND_IMG);
+        // Si le joueur gagne
+        if (type === 'win') {
+            youWon.style.visibility = 'visible';
+            youLose.style.visibility = 'hidden';
+            youLose.style.opacity = '0';
+            citation.style.visibility = 'hidden';
 
-    // Modification des sons en fonction des etats
-    WALL_HIT.muted = !WALL_HIT.muted;
-    PADDLE_HIT.muted = !PADDLE_HIT.muted;
-    BRICK_HIT.muted = !BRICK_HIT.muted;
-    WIN.muted = !WIN.muted;
-    LIFE_LOST.muted = !LIFE_LOST.muted;
-};
+            // Si le joueur perd
+        } else {
+            youWon.style.visibility = 'hidden';
+            youWon.style.opacity = '0';
+            youLose.style.visibility = 'visible';
+            rules.style.visibility = "hidden";
+        }
+    }
 
-// RELANCER LE JEU
-restart.addEventListener('click', function() {
-    location.reload();
-})
+    // RELATIF À TOUS CE QUI CONCERNE L'AFFICHAGE
+    function draw() {
+        drawPaddle();
+        drawBall();
+        drawBricks();
+        showStats(SCORE_IMG, canvas.width - 100, 5, score, canvas.width - 65, 22);
+        showStats(LIFE_IMG, 35, 5, life, 70, 22);
+        showStats(LEVEL_IMG, canvas.width / 2 - 25, 5, level, canvas.width / 2, 22);
+    }
+
+    // RELATIF À TOUS CE QUI CONCERNE L'INTERACTION & LES ANIMATIONS
+    function update() {
+        movePaddle();
+        moveBall();
+        bwCollision();
+        bpCollision();
+        bbCollision();
+        gameover();
+        nextLevel();
+        // addLife();
+    }
+
+    function loop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Si le jeu n'est pas en pause, lancer le jeu
+        if (!isPaused) {
+            draw();
+            update();
+        }
+        // Si le joueur perd afficher GameOver
+        if (!gameOver) {
+            requestAnimationFrame(loop);
+        };
+    };
+
+    loop();
+    //  GESTION DES ÉVENEMENTS AUDIO
+    sound.addEventListener('click', audioManager);
+
+    function audioManager() {
+        // Changer l'image
+        let imgSrc = sound.getAttribute('src');
+        let SOUND_IMG = imgSrc === 'images/sound_on.png' ? 'images/mute.png' : 'images/sound_on.png';
+        sound.setAttribute('src', SOUND_IMG);
+
+        // Modification des sons en fonction des etats
+        WALL_HIT.muted = !WALL_HIT.muted;
+        PADDLE_HIT.muted = !PADDLE_HIT.muted;
+        BRICK_HIT.muted = !BRICK_HIT.muted;
+        WIN.muted = !WIN.muted;
+        LIFE_LOST.muted = !LIFE_LOST.muted;
+    };
+
+    // RELANCER LE JEU
+    restart.addEventListener('click', function() {
+        location.reload();
+    })
