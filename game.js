@@ -14,7 +14,7 @@ const SCORE_UNIT = 9;
 const MAX_LEVEL = 6;
 const MAX_LIFE = 6;
 
-// VARIABLES NCESSAIRES
+// VARIABLES NECESSAIRES
 let leftArrow = false;
 let rightArrow = false;
 let gameOver = false; /* Variable qui indique que le jeu est en marche*/

@@ -95,17 +95,13 @@ p {
     box-shadow: 1px 1px 3px rgba(255, 255, 255, .5);
 }
 
-.game-over {
-    background-image: url('images/background_cassebrique.jpg');
-}
-
 #game-over {
     align-items: center;
     display: flex;
     flex-flow: column;
     height: 250px;
     justify-content: center;
-    /* margin-bottom: 100px; */
+    margin-bottom: 100px;
     opacity: 0;
     position: absolute;
     visibility: hidden;
