@@ -332,6 +332,7 @@ var citationAleatoires = [
     "<p> <q><i>Mieux vaut essayer pour échouer, que d'avoir honte et de ne jamais essayer.</i></q> <br> - Kouassi Sinan KOMENAN,</p>",
 ];
 citations.innerHTML = citationAleatoires[Math.floor((citationAleatoires.length) * Math.random())];
+
 // RELATIF À TOUS CE QUI CONCERNE L'INTERACTION & LES ANIMATIONS
 function update() {
     movePaddle();
