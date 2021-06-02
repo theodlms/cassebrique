@@ -317,7 +317,7 @@ var citationAleatoires = [
     "<p> <q> <i>Le sentiment d'échec n'existe que dans notre façon de concevoir la réussite.</i> </q> <br> - John Joos</p>",
     "<p> <q> <i>Ne jamais abandonner c'est gagner.</i></q> <br> -Internaute</p>",
     "<p> <q><i>N'abandonne jamais puisque la lutte est nécessaire pour nos rêves.</i></q> <br> - Nithael</p>",
-    "<p> <q><i>On abandonne jamais</i></q> <br> - Nidhal</p>",
+    "<p> <q><i>On abandonne jamais si proche du but</i></q> <br> - Nidhal</p>",
     "<p> <q><i>La plus belle réussite c'est de ne pas lâcher prise.</i></q> <br> - William Dubois</p>",
     "<p> <q><i>Dans la vie, toutes les réussites sont des échecs qui ont raté.</i></q> <br> - Romain Gary </p>",
     "<p> <q><i>Il n'y a pas de réussite facile ni d'échecs définitifs.</i></q> <br> - Marcel Proust</p>",

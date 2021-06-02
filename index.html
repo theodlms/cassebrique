@@ -17,25 +17,28 @@
 
 <body>
     <section id="game" class="game">
-        <h3><i>Challenge level 6</i></h3>
-        <input type="button" id="rules-btn" class="btn rules-btn" value="Règles du jeu">
-        <div class="rules" id="rules">
-            <h2>Règles de jeu</h2>
-            <p>Utilisez les touches gauche ◄ et droite ► du clavier pour diriger la planche <br> La balle doit rebondir sur la planche pour rentrer briser les briques</p>
-            <p>Si elle tombe à même le sol, vous perdez une vie. Le jeu s'arrete dès que vous n'avez plus de vie</p>
-            <input type="button" id="close-btn" class="close-btn btn" value="Quitter">
+        <div><input type="button" id="rules-btn" class="btn rules-btn" value="Règles du jeu">
+            <div class="rules" id="rules">
+                <h2>Règles de jeu</h2>
+                <p>Utilisez les touches gauche ◄ et droite ► du clavier pour diriger la planche <br> La balle doit rebondir sur la planche pour rentrer briser les briques</p>
+                <p>Si elle tombe à même le sol, vous perdez une vie. Le jeu s'arrete dès que vous n'avez plus de vie</p>
+                <input type="button" id="close-btn" class="close-btn btn" value="Quitter">
+            </div>
         </div>
-        <div class="sound-container">
-            <img src="images/sound_on.png" alt="" id="sound">
-        </div>
-        <div id="game-over">
-            <img src="images/you-won.png" alt="" id="you-won">
-            <img src="images/game-over.png" alt="" id="you-lose">
-            <p id="citation"></p>
-            <button type="button" id="restart" class="btn btn-outline-primary">Rejouer</button>
-        </div>
+        <div>
 
-        <canvas id="canvas" width="550" height="450"></canvas>
+            <div class="sound-container">
+                <img src="images/sound_on.png" alt="" id="sound">
+            </div>
+            <div id="game-over">
+                <img src="images/you-won.png" alt="" id="you-won">
+                <img src="images/game-over.png" alt="" id="you-lose">
+                <p id="citation"></p>
+                <button type="button" id="restart" class="btn btn-outline-primary">Rejouer</button>
+            </div>
+
+            <canvas id="canvas" width="550" height="450"></canvas>
+        </div>
     </section>
 
 
